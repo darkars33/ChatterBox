@@ -1,14 +1,25 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import {Router, Routes, Route} from "react-router-dom";
+import Home from "./pages/Home";
+import Register from "./pages/Register";
+import Messages from "./components/Messages";
+import CheckEmail from "./pages/CheckEmail";
+import CheckPassword from "./pages/CheckPassword";
+import AuthLayouts from "./layout/index";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <Routes>
+          <Route path="" element={<Home />} />
+          <Route path="/register"  element={ <AuthLayouts><Register /></AuthLayouts> } />
+          <Route path="/email" element={ <AuthLayouts><CheckEmail /></AuthLayouts> } />
+          <Route path="/password" element={<AuthLayouts><CheckPassword /></AuthLayouts>} />
+          <Route path="/:userId" element={<Messages />} />
+        </Routes>
     </>
   );
 }
