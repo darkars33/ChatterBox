@@ -9,17 +9,20 @@ import CheckPassword from "./pages/CheckPassword";
 import AuthLayouts from "./layout/index";
 import { Toaster } from "react-hot-toast";
 
+
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
       <Routes>
-          <Route path="" element={<Home />} />
+          <Route path="/" element={<Home />}>
+            <Route path=":userId" element={<Messages />} />
+          </Route>
           <Route path="/register"  element={ <AuthLayouts><Register /></AuthLayouts> } />
           <Route path="/email" element={ <AuthLayouts><CheckEmail /></AuthLayouts> } />
           <Route path="/password" element={<AuthLayouts><CheckPassword /></AuthLayouts>} />
-          <Route path="/:userId" element={<Messages />} />
+          
         </Routes>
         <Toaster />
     </>

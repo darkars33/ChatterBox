@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import uploadFile from "../helpers/uploadFile";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [data, setData] = useState({
@@ -14,6 +15,7 @@ const Register = () => {
   });
 
   const [profilePic, setProfilePic] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +26,7 @@ const Register = () => {
     });
   };
 
-  const handleProfileUpload = async(e) => {
+  const handleProfileUpload = async (e) => {
     const file = e.target.files[0];
     const response = await uploadFile(file);
     console.log(response);
@@ -35,14 +37,14 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     const url = `${import.meta.env.VITE_APP_BACKEND_URL}/api/register`;
     try {
-      const res= await axios.post(url,data);
-      console.log("response",res);
-      if(res.data.success){
+      const res = await axios.post(url, data);
+      console.log("response", res);
+      if (res.data.success) {
         toast.success(res.data.message);
         setData({
           name: "",
@@ -50,6 +52,7 @@ const Register = () => {
           password: "",
           profile_Pic: "",
         });
+        navigate("/email");
       }
     } catch (error) {
       toast.error(error);
@@ -134,7 +137,12 @@ const Register = () => {
             Register
           </button>
         </form>
-        <p className="text-center my-3" >Already have account? <Link to={"/email"} className="hover:text-primary hover:underline">Login</Link> </p>
+        <p className="text-center my-3">
+          Already have account?{" "}
+          <Link to={"/email"} className="hover:text-primary hover:underline">
+            Login
+          </Link>{" "}
+        </p>
       </div>
     </div>
   );
