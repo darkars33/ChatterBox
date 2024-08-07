@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout, setUser } from '../redux/userSlice';
 import Sidebar from '../components/Sidebar';
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
 
@@ -12,6 +13,7 @@ const Home = () => {
   console.log("redux user",user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const fetchData = async () =>{
     try {
@@ -24,7 +26,7 @@ const Home = () => {
 
       dispatch(setUser(res.data.data));
 
-      if(res.data.logout){
+      if(res.data.data.logout){
         dispatch(logout());
         navigate('/email');
       }
@@ -39,15 +41,25 @@ const Home = () => {
     fetchData();
   },[])
 
+  const basePath= location.pathname=== '/';
+
   return (
     <div className='grid lg:grid-cols-[320px,1fr] h-screen max-h-screen'>
-      <section className='bg-white'>
+      <section className={`bg-white ${!basePath && 'hidden'} lg:block`}>
        <Sidebar />
       </section>
 
-      <section>
+      <section className={`${basePath && 'hidden'}`}>
         <Outlet />
       </section>
+
+      <div className='lg:flex justify-center items-center flex-col gap-2 hidden'>
+        <div>
+          <h1 className='text-[3rem]'>Chat App</h1>
+        </div>
+        <p className='text-lg mt-2 text-center'>Select user to send message</p>
+      </div>
+
     </div>
   )
 }
