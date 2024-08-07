@@ -8,8 +8,8 @@ import { useSelector } from "react-redux";
 
 const Sidebar = () => {
           const user = useSelector(state => state?.user);
-          console.log(user);
-          const [show , setShow] = useState(true);
+          console.log("sidebar",user);
+          const [show , setShow] = useState(false);
   return (
     <div className="w-full h-full">
       <div className="bg-slate-100 w-12 h-full rounded-tr-lg rounded-br-lg py-5 flex flex-col justify-between">
@@ -41,7 +41,7 @@ const Sidebar = () => {
       </div>
 
 
-          {show && <EditUserDetails onClose={() =>setShow(false)} data={user} />}
+          {show && <EditUserDetails onClose={() =>setShow(false)} user={user} />}
 
     </div>
   );

@@ -13,7 +13,7 @@ const uploadFile = async (file) =>{
 
           const responseData= await response.json();
 
-          return responseData.secure_url;
+          return responseData.url;
 }
 
 export default uploadFile;

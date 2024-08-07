@@ -55,6 +55,7 @@ const Register = () => {
         navigate("/email");
       }
     } catch (error) {
+      console.error(error);
       toast.error(error);
     }
   };

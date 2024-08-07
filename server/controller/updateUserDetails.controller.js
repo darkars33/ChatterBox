@@ -1,32 +1,33 @@
-const getUserDetailsFromToken = require('../helpers/getUserDetailsFromToken');
-const User = require('../models/User.model');
+const getUserDetailsFromToken = require("../helpers/getUserDetailsFromToken");
+const User = require("../models/User.model");
 
-const updateUserDetails = async (req, res) =>{
-          try {
-                    const token = req.cookies.token || "";
+const updateUserDetails = async (req, res) => {
+  try {
+    const token = req.cookies.token || "";
 
-                    const user = await getUserDetailsFromToken(token, req, res);
-                    
-                    const {name, profile_Pic} = req.body;
+    const user = await getUserDetailsFromToken(token, req, res);
 
-                    const updateUser= await User.updateOne({_id: user._id} ,{
-                              name,
-                              profile_Pic,
-                    })
+    const { name, profile_Pic } = req.body;
 
-                    const updatedUser = await User.findById(user._id).select('-password');
+    const updateUser = await User.updateOne(
+      { _id: user._id },
+      {
+        name,
+        profile_Pic,
+      }
+    );
 
-                    res.status(200).json({
-                              message: "User updated Successfully",
-                              data: updatedUser,
-                              success: true,
-                    })
-                    
+    const updatedUser = await User.findById(user._id).select("-password");
 
-          } catch (error) {
-                    console.log(error);
-                    res.status(500).jspn({message: error.message});
-          }
-}
+    res.status(200).json({
+      message: "User updated Successfully",
+      data: updatedUser,
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
 
-module.exports = updateUserDetails
+module.exports = updateUserDetails;
