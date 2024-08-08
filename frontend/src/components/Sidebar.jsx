@@ -36,7 +36,7 @@ const Sidebar = () => {
 
         <div >
           <button className="w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded" onClick={() =>setShow(!show)}>
-                    <Avatar width={40} height={40} imageUrl={user?.profile_Pic} />
+                    <Avatar width={40} height={40} imageUrl={user?.profile_Pic} userId={user?._id} />
           </button>
           <button className="w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded">
             <span className="-ml-2">
