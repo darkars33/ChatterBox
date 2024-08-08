@@ -53,12 +53,12 @@ const Home = () => {
         <Outlet />
       </section>
 
-      <div className='lg:flex justify-center items-center flex-col gap-2 hidden'>
+      {basePath && <div className='lg:flex justify-center items-center flex-col gap-2 hidden'>
         <div>
           <h1 className='text-[3rem]'>Chat App</h1>
         </div>
         <p className='text-lg mt-2 text-center'>Select user to send message</p>
-      </div>
+      </div>}
 
     </div>
   )

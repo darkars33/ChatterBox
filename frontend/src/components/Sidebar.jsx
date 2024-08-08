@@ -14,7 +14,7 @@ const Sidebar = () => {
           console.log("sidebar",user);
           const [show , setShow] = useState(false);
           const [allUsers, setAllUsers] = useState([]);
-          const [openSearchUser, setOpenSearchUser] = useState(true);
+          const [openSearchUser, setOpenSearchUser] = useState(false);
   return (
     <div className="w-full h-full flex bg-white">
       <div className="bg-slate-100 w-12 h-full rounded-tr-lg rounded-br-lg py-5 flex flex-col justify-between">
