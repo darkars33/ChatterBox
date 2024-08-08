@@ -12,12 +12,10 @@ import io from "socket.io-client"
 const Home = () => {
 
   const user = useSelector(state => state.user);
-  console.log("redux user",user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log('user', user);
 
   const fetchData = async () =>{
     try {
@@ -35,7 +33,6 @@ const Home = () => {
         navigate('/email');
       }
 
-      console.log('response', res);
     } catch (error) {
       console.log(error)
     }

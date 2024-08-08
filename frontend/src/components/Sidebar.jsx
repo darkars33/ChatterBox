@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoChatbubbleEllipses } from "react-icons/io5";
 import { FaUserPlus } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
@@ -11,10 +11,22 @@ import SearchUser from "./SearchUser";
 
 const Sidebar = () => {
           const user = useSelector(state => state?.user);
-          console.log("sidebar",user);
           const [show , setShow] = useState(false);
           const [allUsers, setAllUsers] = useState([]);
           const [openSearchUser, setOpenSearchUser] = useState(false);
+          const socketConnection = useSelector(state => state?.user?.socketConnection);
+
+          useEffect(() =>{
+            if(socketConnection){
+              socketConnection.emit('sidebar', user?._id);
+              socketConnection.on('conversation', (data) =>{
+                console.log("conversation", data);
+                setAllUsers(data);
+              })
+            }
+          },[socketConnection, user])
+
+
   return (
     <div className="w-full h-full flex bg-white">
       <div className="bg-slate-100 w-12 h-full rounded-tr-lg rounded-br-lg py-5 flex flex-col justify-between">
@@ -62,6 +74,13 @@ const Sidebar = () => {
                   </div>
                 )
               }
+
+              {
+                allUsers.map((conv, index) =>{
+                  
+                })
+              }
+
              </div>
         </div>
 
