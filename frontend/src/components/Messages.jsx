@@ -136,7 +136,7 @@ const Messages = () => {
     }
   };
   return (
-    <div>
+    <div className="z-0">
       <header className="sticky top-0 h-16 bg-white">
         <div className="flex items-center gap-4">
           <div>

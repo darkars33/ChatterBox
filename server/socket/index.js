@@ -57,9 +57,9 @@ io.on('connection', async(socket) => {
 
     let conversation = await Conversation.findOne({
       "$or": [
-        {sender: data?.sender, receiver: data?.receiver},
-        {sender: data?.receiver, receiver: data?.sender},
-      ]
+    {sender: data?.sender, receiver: data?.receiver},
+    {sender: data?.receiver, receiver: data?.sender},
+  ]
     })
     console.log('conversation', conversation);
     if(!conversation){
@@ -83,10 +83,10 @@ io.on('connection', async(socket) => {
       "$push": {messages : saveMessage?._id}
     })
 
-    const getConversation = await Conversation.findOne({"$or" : [
-      {sender : data?.sender, receiver: data?.receiver},
-      {sender : data?.receiver, receiver: data?.sender},
-    ]}).populate('messages').sort({updatedAt: -1})
+    const getConversation = await Conversation.findOne({"$or": [
+    {sender: data?.sender, receiver: data?.receiver},
+    {sender:data?.receiver, receiver: data?.sender},
+  ]}).populate('messages').sort({updatedAt: -1})
 
     io.to(data?.sender).emit('message', getConversation.messages
     );

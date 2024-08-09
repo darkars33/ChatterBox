@@ -19,9 +19,34 @@ const Sidebar = () => {
           useEffect(() =>{
             if(socketConnection){
               socketConnection.emit('sidebar', user?._id);
+
               socketConnection.on('conversation', (data) =>{
                 console.log("conversation", data);
-                setAllUsers(data);
+
+                const conversationUserData = data.map((conversationUser, index) =>{
+                  if(conversationUser?.sender?._id === conversationUser.receiver?._id){
+                    return  {
+                      ...conversationUser,
+                      userDetails: conversationUser.sender
+                    }
+                  }
+                  else if(conversationUser?.receiver?._id === user._id){
+                    return {
+                      ...conversationUser,
+                      userDetails: conversationUser.receiver
+                    }
+                  }else{
+                    return {
+                      ...conversationUser,
+                      userDetails: conversationUser.sender
+                    }
+                  }
+                })
+
+                setAllUsers(conversationUserData);
+
+
+
               })
             }
           },[socketConnection, user])
@@ -63,7 +88,7 @@ const Sidebar = () => {
              <h2 className="text-2xl font-bold p-4">Message</h2>
              </div>
              <Divider />
-             <div className="h-[calc(100vh-60px)] overflow-x-hidden overflow-y-scroll">
+             <div className="h-[calc(100vh-60px)] overflow-x-hidden overflow-y-scroll flex flex-col gap-4">
               {
                 allUsers.length == 0 && (
                   <div className="flex flex-col justify-center items-center my-4 text-slate-400">
@@ -77,7 +102,16 @@ const Sidebar = () => {
 
               {
                 allUsers.map((conv, index) =>{
-                  
+                  return (
+                    <div kry={conv?._id} className="flex gap-2 items-center p-3 border">
+                        <div>
+                          <Avatar imageUrl={conv.userDetails.profile_Pic} name={conv?.userDetails?.name} width={50} height={50} />
+                        </div>
+                        <div>
+                          <h3>{conv?.userDetails?.name}</h3>
+                          </div>
+                    </div>
+                  )
                 })
               }
 

@@ -38,10 +38,8 @@ const Avatar = ({ userId, name, imageUrl, height, width }) => {
       {imageUrl ? (
         <img
           src={imageUrl}
-          width={width}
-          height={height}
           alt={name}
-          className="overflow-hidden rounded-full"
+          className={`overflow-hidden rounded-full  w-[${width}px] h-[${height}px]`}
         />
           // <div style={{backgroundImage: `url(${imageUrl})`, backgroundSize: "150px"}}>
 
